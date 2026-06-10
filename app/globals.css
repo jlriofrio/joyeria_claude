@@ -89,3 +89,26 @@ body {
   color: #0A0A0A;
   font-family: var(--font-raleway), system-ui, sans-serif;
 }
+
+/* Animación de aparición al hacer scroll (usada por <Reveal />) */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

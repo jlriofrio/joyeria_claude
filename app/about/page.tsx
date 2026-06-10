@@ -1,50 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/app/Navbar";
 import Footer from "@/app/Footer";
 import WhatsAppButton from "@/app/WhatsAppButton";
+import Reveal from "@/app/Reveal";
 import { AboutHistory } from "@/app/about/AboutHistory";
-
-const milestones = [
-  {
-    year: "1987",
-    title: "Los comienzos",
-    desc: "Un matrimonio de orfebres caleños funda el taller, elaborando joyas para reconocidas joyerías de Cali con pasión y precisión artesanal. gracias a Abimaru!!! ",
-  },
-  {
-    year: "2000s",
-    title: "Crecimiento",
-    desc: "La calidad artesanal y el voz a voz nos permitieron expandir el catálogo y comenzar a recibir pedidos completamente personalizados.",
-  },
-  {
-    year: "Hoy",
-    title: "Tradición viva",
-    desc: "Con más de 35 años creando joyas únicas en oro y plata, fieles a nuestra esencia artesanal y al amor por el detalle.",
-  },
-];
-
-const values = [
-  {
-    title: "Artesanía",
-    desc: "Cada pieza es trabajada a mano, con herramientas tradicionales y técnicas depuradas durante décadas de oficio.",
-  },
-  {
-    title: "Personalización",
-    desc: "Creamos joyas a medida que reflejan tu personalidad, tus deseos y tus momentos más significativos.",
-  },
-  {
-    title: "Confianza",
-    desc: "Más de 35 años de relaciones honestas con nuestros clientes son nuestro mayor certificado de calidad.",
-  },
-];
+import { useTranslations } from "@/app/context/LanguageContext";
 
 export default function AboutPage() {
+  const t = useTranslations();
+
   return (
     <main className="bg-ivory">
       <Navbar />
 
       {/* HERO CINEMATOGRÁFICO */}
-      <section className="relative h-[75vh] flex items-end overflow-hidden">
+      <section className="relative h-[60vh] sm:h-[75vh] flex items-end overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1920&auto=format&fit=crop"
           alt="Orfebrería artesanal"
@@ -56,36 +29,38 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/95 via-obsidian/45 to-obsidian/15" />
         <div className="absolute inset-0 bg-gradient-to-r from-obsidian/40 to-transparent" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pb-20 w-full">
-          <span className="text-gold text-xs tracking-[6px] uppercase font-sans block mb-5">
-            — Nuestra Historia
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-6 pb-14 sm:pb-20 w-full">
+          <span className="text-gold text-xs tracking-[6px] uppercase font-sans block mb-4 sm:mb-5">
+            — {t.about.heroEyebrow}
           </span>
-          <h1 className="font-heading text-7xl md:text-8xl lg:text-9xl font-light text-white leading-[0.92]">
-            Tradición<br />
-            <em className="not-italic text-gold">familiar</em>
+          <h1 className="font-heading text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-white leading-[0.92]">
+            {t.about.heroTitleLine1}<br />
+            <em className="not-italic text-gold">{t.about.heroTitleAccent}</em>
           </h1>
         </div>
 
-        {/* Línea dorada decorativa */}
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
       </section>
 
       {/* HISTORIA PRINCIPAL */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+      <section className="max-w-7xl mx-auto px-5 sm:px-6 py-16 sm:py-24">
+        <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
 
           {/* Texto */}
-          <div>
-            <span className="text-gold text-xs tracking-[6px] uppercase font-sans">Quiénes somos</span>
-            <h2 className="font-heading text-5xl font-light mt-4 mb-8 leading-tight text-obsidian">
-              Arte hecho a mano<br />
-              desde <em className="not-italic text-gold">Cali, Colombia</em>
+          <Reveal>
+            <span className="text-gold text-xs tracking-[6px] uppercase font-sans">
+              {t.about.whoEyebrow}
+            </span>
+            <h2 className="font-heading text-4xl sm:text-5xl font-light mt-4 mb-8 leading-tight text-obsidian">
+              {t.about.whoTitleLine1}<br />
+              {t.about.whoTitleLine2}{" "}
+              <em className="not-italic text-gold">{t.about.whoTitleAccent}</em>
             </h2>
             <AboutHistory />
-          </div>
+          </Reveal>
 
           {/* Imagen con badge */}
-          <div className="relative h-[580px] overflow-hidden">
+          <Reveal delay={150} className="relative h-[380px] sm:h-[480px] md:h-[580px] overflow-hidden">
             <Image
               src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1200&auto=format&fit=crop"
               alt="Proceso artesanal en el taller"
@@ -94,35 +69,37 @@ export default function AboutPage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-obsidian/10" />
-            <div className="absolute top-6 left-6 bg-ivory/95 backdrop-blur-sm p-6 border-b-2 border-gold">
-              <p className="font-heading text-5xl text-gold font-light leading-none">1987</p>
+            <div className="absolute top-6 left-6 bg-ivory/95 backdrop-blur-sm p-5 sm:p-6 border-b-2 border-gold">
+              <p className="font-heading text-4xl sm:text-5xl text-gold font-light leading-none">1987</p>
               <p className="text-obsidian text-xs tracking-[3px] uppercase mt-1 font-sans">
-                Año de fundación
+                {t.about.foundedLabel}
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
       {/* TIMELINE */}
-      <section className="bg-obsidian py-24 px-6">
+      <section className="bg-obsidian py-16 sm:py-24 px-5 sm:px-6">
         <div className="max-w-7xl mx-auto">
 
-          <div className="text-center mb-16">
-            <span className="text-gold text-xs tracking-[6px] uppercase font-sans">Cronología</span>
-            <h2 className="font-heading text-5xl font-light text-white mt-3">
-              Nuestra <em className="not-italic text-gold">trayectoria</em>
+          <Reveal className="text-center mb-12 sm:mb-16">
+            <span className="text-gold text-xs tracking-[6px] uppercase font-sans">
+              {t.about.timelineEyebrow}
+            </span>
+            <h2 className="font-heading text-4xl sm:text-5xl font-light text-white mt-3">
+              {t.about.timelineTitle}{" "}
+              <em className="not-italic text-gold">{t.about.timelineTitleAccent}</em>
             </h2>
-          </div>
+          </Reveal>
 
           <div className="relative">
             {/* Línea horizontal (solo desktop) */}
             <div className="absolute top-7 left-0 right-0 h-px bg-gold/15 hidden md:block" />
 
-            <div className="grid md:grid-cols-3 gap-12">
-              {milestones.map((m, i) => (
-                <div key={i} className="relative text-center">
-                  {/* Nodo */}
+            <div className="grid md:grid-cols-3 gap-10 sm:gap-12">
+              {t.about.milestones.map((m, i) => (
+                <Reveal key={i} delay={i * 120} className="relative text-center">
                   <div className="w-14 h-14 border border-gold/40 flex items-center justify-center mx-auto mb-7 relative bg-obsidian">
                     <span className="font-heading text-gold text-sm font-light tracking-wider">
                       {m.year}
@@ -130,8 +107,8 @@ export default function AboutPage() {
                   </div>
                   <h3 className="font-heading text-2xl text-white mb-3 font-light">{m.title}</h3>
                   <div className="w-6 h-px bg-gold mx-auto mb-5" />
-                  <p className="text-white/55 leading-relaxed text-sm font-sans">{m.desc}</p>
-                </div>
+                  <p className="text-white/55 leading-relaxed text-sm font-sans max-w-xs mx-auto">{m.desc}</p>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -139,72 +116,78 @@ export default function AboutPage() {
       </section>
 
       {/* VALORES */}
-      <section className="py-24 px-6 bg-cream">
+      <section className="py-16 sm:py-24 px-5 sm:px-6 bg-cream">
         <div className="max-w-7xl mx-auto">
 
-          <div className="text-center mb-16">
-            <span className="text-gold-dark text-xs tracking-[6px] uppercase font-sans">Nuestros valores</span>
-            <h2 className="font-heading text-5xl font-light mt-3 text-obsidian">
-              Lo que nos <em className="not-italic text-gold-dark">define</em>
+          <Reveal className="text-center mb-12 sm:mb-16">
+            <span className="text-gold-dark text-xs tracking-[6px] uppercase font-sans">
+              {t.about.valuesEyebrow}
+            </span>
+            <h2 className="font-heading text-4xl sm:text-5xl font-light mt-3 text-obsidian">
+              {t.about.valuesTitle}{" "}
+              <em className="not-italic text-gold-dark">{t.about.valuesTitleAccent}</em>
             </h2>
-          </div>
+          </Reveal>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {values.map((v, i) => (
-              <div
+            {t.about.values.map((v, i) => (
+              <Reveal
                 key={i}
-                className="bg-ivory p-8 border-t-2 border-gold/40 hover:border-gold transition-colors duration-300 group"
+                delay={i * 100}
+                className="bg-ivory p-7 sm:p-8 border-t-2 border-gold/40 hover:border-gold transition-colors duration-300 group"
               >
-                <h3 className="font-heading text-3xl font-light mb-5 text-obsidian group-hover:text-gold transition-colors duration-300">
+                <h3 className="font-heading text-2xl sm:text-3xl font-light mb-5 text-obsidian group-hover:text-gold transition-colors duration-300">
                   {v.title}
                 </h3>
                 <div className="w-8 h-px bg-gold mb-6" />
-                <p className="text-graphite leading-relaxed font-sans">{v.desc}</p>
-              </div>
+                <p className="text-graphite leading-relaxed font-sans text-sm sm:text-base">{v.desc}</p>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* CITA INSPIRACIONAL */}
-      <section className="py-28 px-6 bg-obsidian relative overflow-hidden">
-        {/* Decoración */}
+      <section className="py-20 sm:py-28 px-5 sm:px-6 bg-obsidian relative overflow-hidden">
         <div className="absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
         <div className="absolute bottom-8 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
 
-        <div className="max-w-3xl mx-auto text-center relative">
-          <div className="font-heading text-8xl text-gold/25 leading-none mb-2 select-none">
-            "
+        <Reveal className="max-w-3xl mx-auto text-center relative">
+          <div className="font-heading text-7xl sm:text-8xl text-gold/25 leading-none mb-2 select-none">
+            &ldquo;
           </div>
-          <blockquote className="font-heading text-3xl md:text-4xl font-light text-white/90 italic leading-relaxed -mt-6">
-            La joyería no es solo metal y piedras. Es emoción hecha tangible, tiempo hecho eterno.
+          <blockquote className="font-heading text-2xl sm:text-3xl md:text-4xl font-light text-white/90 italic leading-relaxed -mt-6">
+            {t.about.quote}
           </blockquote>
           <div className="w-10 h-px bg-gold mx-auto mt-10 mb-5" />
           <cite className="text-gold text-xs tracking-[5px] uppercase not-italic font-sans">
-            Aydee Orfebre — Cali, Colombia
+            {t.about.quoteAuthor}
           </cite>
-        </div>
+        </Reveal>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 bg-ivory text-center">
-        <span className="text-gold text-xs tracking-[6px] uppercase font-sans">¿Listo para crear?</span>
-        <h2 className="font-heading text-4xl md:text-5xl font-light mt-4 mb-8 text-obsidian">
-          Cuéntanos tu idea,<br />
-          la <em className="not-italic text-gold">hacemos realidad</em>
+      <section className="py-16 sm:py-20 px-5 sm:px-6 bg-ivory text-center">
+        <span className="text-gold text-xs tracking-[6px] uppercase font-sans">
+          {t.about.ctaEyebrow}
+        </span>
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-light mt-4 mb-8 text-obsidian">
+          {t.about.ctaTitleLine1}<br />
+          {t.about.ctaTitleLine2}{" "}
+          <em className="not-italic text-gold">{t.about.ctaTitleAccent}</em>
         </h2>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href="/contact"
-            className="bg-obsidian text-ivory px-10 py-4 text-xs tracking-[4px] uppercase hover:bg-graphite transition-colors duration-300"
+            className="bg-obsidian text-ivory px-8 sm:px-10 py-4 text-xs tracking-[4px] uppercase hover:bg-graphite transition-colors duration-300"
           >
-            Contactarnos
+            {t.about.ctaContact}
           </Link>
           <Link
             href="/catalogo"
-            className="border border-obsidian text-obsidian px-10 py-4 text-xs tracking-[4px] uppercase hover:bg-obsidian hover:text-ivory transition-all duration-300"
+            className="border border-obsidian text-obsidian px-8 sm:px-10 py-4 text-xs tracking-[4px] uppercase hover:bg-obsidian hover:text-ivory transition-all duration-300"
           >
-            Ver catálogo
+            {t.about.ctaCatalog}
           </Link>
         </div>
       </section>
