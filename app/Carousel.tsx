@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useTranslations } from "@/app/context/LanguageContext";
 
 const slideMedia = [
-  { image: "/joyas/images/Anillos/Anillo.jpeg", href: "/catalogo/anillos" },
-  { image: "/joyas/images/Cadena/Cadena.jpeg", href: "/catalogo/cadena" },
-  { image: "/joyas/images/Argollas/Argollas.jpeg", href: "/catalogo/argollas" },
-  { image: "/joyas/images/Pulseras/Pulsera.jpeg", href: "/catalogo/pulseras" },
+  { image: "/joyas/images/Anillos/Anillo.jpeg" },
+  { image: "/joyas/images/Cadena/Cadena.jpeg" },
+  { image: "/joyas/images/Argollas/Argollas.jpeg" },
+  { image: "/joyas/images/Pulseras/Pulsera.jpeg" },
 ];
 
 export default function Carousel() {
@@ -115,20 +115,12 @@ export default function Carousel() {
               {slide.subtitle}
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-              <Link
-                href={slide.href}
-                className="bg-gold text-obsidian px-6 sm:px-8 py-3 sm:py-3.5 text-[11px] sm:text-xs tracking-[3px] uppercase font-medium hover:bg-gold-light transition-colors duration-300"
-              >
-                {slide.ctaLabel}
-              </Link>
-              <Link
-                href="/catalogo"
-                className="border border-white/35 text-white/75 px-6 sm:px-8 py-3 sm:py-3.5 text-[11px] sm:text-xs tracking-[3px] uppercase hover:border-gold hover:text-gold transition-all duration-300"
-              >
-                {t.hero.viewAll}
-              </Link>
-            </div>
+            <Link
+              href="/catalogo"
+              className="inline-block bg-gold text-obsidian px-8 sm:px-10 py-3.5 sm:py-4 text-[11px] sm:text-xs tracking-[3px] uppercase font-medium hover:bg-gold-light transition-colors duration-300"
+            >
+              {t.hero.catalogButton}
+            </Link>
           </div>
         </div>
       ))}
