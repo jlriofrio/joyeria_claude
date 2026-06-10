@@ -68,7 +68,7 @@ export default function Home() {
           <div className="text-center mb-16">
             <span className="text-gold text-xs tracking-[6px] uppercase font-sans">Colecciones</span>
             <h2 className="font-heading text-5xl md:text-6xl font-light mt-3 text-obsidian">
-              Nuestras <em className="not-italic text-gold">joyas</em>
+              Nuestras andres <em className="not-italic text-gold">joyas</em>
             </h2>
             <div className="w-10 h-px bg-gold mx-auto mt-6" />
           </div>
