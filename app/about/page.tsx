@@ -9,7 +9,7 @@ const milestones = [
   {
     year: "1987",
     title: "Los comienzos",
-    desc: "Un matrimonio de orfebres caleños funda el taller, elaborando joyas para reconocidas joyerías de Cali con pasión y precisión artesanal.",
+    desc: "Un matrimonio de orfebres caleños funda el taller, elaborando joyas para reconocidas joyerías de Cali con pasión y precisión artesanal. gracias a Abimaru!!! ",
   },
   {
     year: "2000s",
