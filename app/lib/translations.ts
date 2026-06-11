@@ -209,15 +209,7 @@ export const translations = {
       fallback: "Déjanos tus datos en el formulario y te contactaremos pronto.",
     },
     footer: {
-      description:
-        "Joyería artesanal en Cali, Colombia. Más de 35 años creando piezas únicas en oro y plata con pasión y tradición familiar.",
-      navTitle: "Navegación",
-      collectionsTitle: "Colecciones",
-      contactTitle: "Contacto",
       location: "Cali, Colombia",
-      scheduleLabel: "Horario",
-      weekdays: "Lun – Vie: 9am – 6pm",
-      saturday: "Sábados: 9am – 2pm",
       rights: "© 2026 Aydee Orfebre. Todos los derechos reservados.",
       tagline: "Diseñado con pasión · Cali, Colombia",
     },
@@ -434,15 +426,7 @@ export const translations = {
       fallback: "Leave your details in the form and we will contact you soon.",
     },
     footer: {
-      description:
-        "Artisan jewelry in Cali, Colombia. More than 35 years creating unique gold and silver pieces with passion and family tradition.",
-      navTitle: "Navigation",
-      collectionsTitle: "Collections",
-      contactTitle: "Contact",
       location: "Cali, Colombia",
-      scheduleLabel: "Hours",
-      weekdays: "Mon – Fri: 9am – 6pm",
-      saturday: "Saturdays: 9am – 2pm",
       rights: "© 2026 Aydee Orfebre. All rights reserved.",
       tagline: "Designed with passion · Cali, Colombia",
     },
