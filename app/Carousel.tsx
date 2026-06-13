@@ -6,8 +6,8 @@ import { useTranslations } from "@/app/context/LanguageContext";
 
 const slideMedia = [
   { image: "/joyas/images/Anillos/Anillo.jpeg" },
-  { image: "/joyas/images/Cadena/Cadena.jpeg" },
-  { image: "/joyas/images/Argollas/Argollas.jpeg" },
+  { image: "/joyas/images/Cadena/Cadena.png" },
+  { image: "/joyas/images/Argollas/Argollas.png" },
   { image: "/joyas/images/Pulseras/Pulsera.jpeg" },
 ];
 
