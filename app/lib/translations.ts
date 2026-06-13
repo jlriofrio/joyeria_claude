@@ -71,7 +71,8 @@ export const translations = {
       collectionLabel: "Colección artesanal",
       viewCollection: "Ver colección",
       notFoundTitle: "¿No encuentras lo que buscas?",
-      notFoundText: "Diseñamos tu joya a medida, sin límites.",
+      notFoundText:
+        "Escuchamos tu propuesta para diseñar tu joya personalizada.",
       requestCustom: "Solicitar diseño personalizado",
       categories: {
         Anillos: "Anillos",
