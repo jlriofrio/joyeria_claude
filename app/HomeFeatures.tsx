@@ -37,7 +37,7 @@ export function HomeFeaturesSection() {
   const features = [t.home.feature1, t.home.feature2, t.home.feature3, t.home.feature4];
 
   return (
-    <section className="bg-ivory py-20 px-6 border-b border-obsidian/8">
+    <section className="bg-ivory py-14 sm:py-20 px-5 sm:px-6 border-b border-obsidian/8">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10">
           {features.map((feature, i) => (
@@ -64,12 +64,15 @@ export function HomeTestimonialsSection() {
   ];
 
   return (
-    <section className="bg-ivory py-24 px-6">
+    <section className="bg-ivory py-16 sm:py-24 px-5 sm:px-6">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-14">
+        <div className="text-center mb-12 sm:mb-14">
           <span className="text-gold-dark text-xs tracking-[6px] uppercase font-sans">
-            {t.home.testimonialsTitle}
+            {t.home.testimonialsEyebrow}
           </span>
+          <h2 className="font-heading text-4xl sm:text-5xl font-light mt-3 text-obsidian">
+            {t.home.testimonialsTitle}
+          </h2>
           <div className="w-10 h-px bg-gold-dark mx-auto mt-5" />
         </div>
 
@@ -89,7 +92,7 @@ export function HomeTestimonialsSection() {
               </div>
 
               <blockquote className="font-heading text-xl font-light text-obsidian leading-relaxed italic mb-6">
-                "{item.text}"
+                &ldquo;{item.text}&rdquo;
               </blockquote>
 
               <cite className="not-italic text-[10px] tracking-[4px] uppercase text-graphite font-sans">

@@ -73,7 +73,7 @@ export default function ContactForm() {
           </svg>
         </div>
         <h3 className="font-heading text-3xl text-obsidian mb-3 font-light">
-          ¡Mensaje enviado!
+          {t.contact.sentTitle}
         </h3>
         <p className="text-graphite font-sans text-sm">
           {t.contact.sent}
@@ -82,7 +82,7 @@ export default function ContactForm() {
           onClick={() => setStatus("idle")}
           className="mt-8 text-xs tracking-[3px] uppercase text-gold hover:text-gold-dark transition-colors"
         >
-          Enviar otro mensaje
+          {t.contact.sendAnother}
         </button>
       </div>
     );
@@ -98,56 +98,54 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label className={labelClass}>{t.contact.namePlaceholder}</label>
+          <label className={labelClass}>{t.contact.nameLabel}</label>
           <input
             type="text"
             required
             value={form.name}
             onChange={set("name")}
             className={fieldClass}
-            placeholder="Tu nombre"
+            placeholder={t.contact.namePlaceholder}
           />
         </div>
         <div>
-          <label className={labelClass}>Teléfono</label>
+          <label className={labelClass}>{t.contact.phoneLabel}</label>
           <input
             type="tel"
             value={form.phone}
             onChange={set("phone")}
             className={fieldClass}
-            placeholder="+57 300 000 0000"
+            placeholder={t.contact.phonePlaceholder}
           />
         </div>
       </div>
 
       <div>
-        <label className={labelClass}>{t.contact.emailPlaceholder}</label>
+        <label className={labelClass}>{t.contact.emailLabel}</label>
         <input
           type="email"
           required
           value={form.email}
           onChange={set("email")}
           className={fieldClass}
-          placeholder="tu@correo.com"
+          placeholder={t.contact.emailPlaceholder}
         />
       </div>
 
       <div>
-        <label className={labelClass}>¿Qué te interesa?</label>
+        <label className={labelClass}>{t.contact.interestLabel}</label>
         <div className="relative">
           <select
             value={form.interest}
             onChange={set("interest")}
             className={`${fieldClass} appearance-none pr-10 bg-ivory cursor-pointer`}
           >
-            <option value="">Selecciona una opción</option>
-            <option value="anillos">Anillos</option>
-            <option value="cadenas">Cadenas y dijes</option>
-            <option value="aretes">Aretes</option>
-            <option value="argollas">Argollas</option>
-            <option value="pulseras">Pulseras</option>
-            <option value="personalizado">Diseño personalizado</option>
-            <option value="otro">Otro</option>
+            <option value="">{t.contact.interestDefault}</option>
+            {Object.entries(t.contact.interestOptions).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
           </select>
           <svg
             className="absolute right-4 top-1/2 -translate-y-1/2 text-graphite/50 pointer-events-none"
@@ -164,14 +162,14 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className={labelClass}>{t.contact.messagePlaceholder}</label>
+        <label className={labelClass}>{t.contact.messageLabel}</label>
         <textarea
           required
           rows={5}
           value={form.message}
           onChange={set("message")}
           className={`${fieldClass} resize-none`}
-          placeholder="Cuéntanos tu idea o consulta..."
+          placeholder={t.contact.messagePlaceholder}
         />
       </div>
 

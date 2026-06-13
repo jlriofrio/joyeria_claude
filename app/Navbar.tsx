@@ -5,6 +5,26 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage, useTranslations } from "@/app/context/LanguageContext";
 
+function InstagramIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -28,12 +48,18 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  // Cerrar con Escape
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [mobileOpen]);
 
   const solidBg = !isHome || scrolled;
@@ -47,10 +73,10 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between">
 
           {/* LOGO */}
-          <Link href="/" className="group flex flex-col items-start leading-none select-none">
+          <Link href="/" className="group flex flex-col items-start leading-none select-none relative z-50">
             <span className="font-heading text-2xl font-semibold tracking-[5px] text-gold transition-colors duration-300 group-hover:text-gold-light">
               Aydee
             </span>
@@ -59,13 +85,13 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* DESKTOP LINKS */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* DESKTOP / TABLET LINKS */}
+          <div className="hidden md:flex items-center gap-5 lg:gap-8">
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`relative text-xs tracking-[3px] uppercase transition-colors duration-300 group pb-1 ${
+                className={`relative text-xs tracking-[2px] lg:tracking-[3px] uppercase transition-colors duration-300 group pb-1 ${
                   pathname === href
                     ? "text-gold"
                     : "text-white/75 hover:text-white"
@@ -80,7 +106,6 @@ export default function Navbar() {
               </Link>
             ))}
 
-            {/* Instagram */}
             <a
               href="https://www.instagram.com/aydeeorfebre/"
               target="_blank"
@@ -88,50 +113,29 @@ export default function Navbar() {
               className="text-white/65 hover:text-gold transition-colors duration-300"
               aria-label="Instagram"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-              </svg>
+              <InstagramIcon />
             </a>
 
-            {/* Language switcher */}
             <div className="flex items-center gap-1 border border-white/15 p-0.5">
-              <button
-                onClick={() => setLanguage("es")}
-                className={`px-2.5 py-1 text-[10px] tracking-[2px] font-sans transition-all duration-200 ${
-                  language === "es"
-                    ? "bg-gold text-obsidian"
-                    : "text-white/55 hover:text-white"
-                }`}
-              >
-                ES
-              </button>
-              <button
-                onClick={() => setLanguage("en")}
-                className={`px-2.5 py-1 text-[10px] tracking-[2px] font-sans transition-all duration-200 ${
-                  language === "en"
-                    ? "bg-gold text-obsidian"
-                    : "text-white/55 hover:text-white"
-                }`}
-              >
-                EN
-              </button>
+              {(["es", "en"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={language === lang}
+                  className={`px-2.5 py-1 text-[10px] tracking-[2px] font-sans uppercase transition-all duration-200 ${
+                    language === lang
+                      ? "bg-gold text-obsidian"
+                      : "text-white/55 hover:text-white"
+                  }`}
+                >
+                  {lang}
+                </button>
+              ))}
             </div>
 
             <Link
               href="/contact"
-              className="border border-gold/60 text-gold text-xs tracking-[3px] uppercase px-5 py-2.5 hover:bg-gold hover:text-obsidian hover:border-gold transition-all duration-300"
+              className="hidden lg:inline-block border border-gold/60 text-gold text-xs tracking-[3px] uppercase px-5 py-2.5 hover:bg-gold hover:text-obsidian hover:border-gold transition-all duration-300"
             >
               {t.productCard.quote}
             </Link>
@@ -140,8 +144,9 @@ export default function Navbar() {
           {/* HAMBURGER */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden flex flex-col justify-center gap-[5px] p-2 z-60"
-            aria-label={mobileOpen ? "Cerrar menú" : t.nav.openMenu}
+            className="md:hidden flex flex-col justify-center gap-[5px] p-2 relative z-50"
+            aria-label={mobileOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={mobileOpen}
           >
             <span
               className={`block w-6 h-[1.5px] bg-gold origin-center transition-all duration-300 ${
@@ -164,88 +169,81 @@ export default function Navbar() {
 
       {/* MOBILE MENU OVERLAY */}
       <div
-        className={`fixed inset-0 z-40 bg-obsidian flex flex-col items-center justify-center transition-all duration-500 md:hidden ${
+        className={`fixed inset-0 z-40 bg-obsidian/98 backdrop-blur-sm md:hidden transition-all duration-400 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        aria-hidden={!mobileOpen}
       >
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-        <nav className="flex flex-col items-center gap-10">
-          {navLinks.map(({ href, label }) => (
+        <div className="h-full overflow-y-auto flex flex-col items-center justify-center px-6 pt-20 pb-10 gap-7">
+          <nav className="flex flex-col items-center gap-5">
+            {navLinks.map(({ href, label }, i) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className={`font-heading text-3xl font-light tracking-[4px] transition-all duration-500 ${
+                  pathname === href ? "text-gold" : "text-white/80 hover:text-gold"
+                } ${mobileOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                style={{ transitionDelay: mobileOpen ? `${120 + i * 70}ms` : "0ms" }}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            className={`flex flex-col items-center gap-6 transition-all duration-500 ${
+              mobileOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: mobileOpen ? "420ms" : "0ms" }}
+          >
             <Link
-              key={href}
-              href={href}
+              href="/contact"
               onClick={() => setMobileOpen(false)}
-              className={`font-heading text-5xl font-light tracking-[6px] transition-colors duration-300 ${
-                pathname === href ? "text-gold" : "text-white/80 hover:text-gold"
-              }`}
+              className="border border-gold/50 text-gold font-heading text-lg tracking-[4px] px-8 py-2.5 hover:bg-gold hover:text-obsidian transition-all duration-300"
             >
-              {label}
+              {t.productCard.quote}
             </Link>
-          ))}
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
-            className="mt-4 border border-gold/50 text-gold font-heading text-2xl tracking-[5px] px-10 py-3 hover:bg-gold hover:text-obsidian transition-all duration-300"
-          >
-            {t.productCard.quote}
-          </Link>
 
-          {/* Language switcher mobile */}
-          <div className="flex items-center gap-2 mt-2">
-            <button
-              onClick={() => setLanguage("es")}
-              className={`px-4 py-2 text-xs tracking-[3px] uppercase font-sans border transition-all duration-200 ${
-                language === "es"
-                  ? "bg-gold text-obsidian border-gold"
-                  : "text-white/55 border-white/20 hover:text-white"
-              }`}
+            {/* Idioma */}
+            <div className="flex items-center gap-2">
+              {(["es", "en"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  aria-pressed={language === lang}
+                  className={`px-4 py-2 text-xs tracking-[3px] uppercase font-sans border transition-all duration-200 ${
+                    language === lang
+                      ? "bg-gold text-obsidian border-gold"
+                      : "text-white/55 border-white/20 hover:text-white"
+                  }`}
+                >
+                  {lang}
+                </button>
+              ))}
+            </div>
+
+            {/* Instagram */}
+            <a
+              href="https://www.instagram.com/aydeeorfebre/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-white/50 hover:text-gold transition-colors duration-300 text-xs tracking-[4px] uppercase"
             >
-              ES
-            </button>
-            <button
-              onClick={() => setLanguage("en")}
-              className={`px-4 py-2 text-xs tracking-[3px] uppercase font-sans border transition-all duration-200 ${
-                language === "en"
-                  ? "bg-gold text-obsidian border-gold"
-                  : "text-white/55 border-white/20 hover:text-white"
-              }`}
-            >
-              EN
-            </button>
+              <InstagramIcon size={16} />
+              Instagram
+            </a>
+
+            <div className="flex items-center gap-3 text-gold/30 text-[10px] tracking-[4px] uppercase">
+              <div className="w-8 h-px bg-gold/30" />
+              Cali, Colombia
+              <div className="w-8 h-px bg-gold/30" />
+            </div>
           </div>
-
-          {/* Instagram mobile */}
-          <a
-            href="https://www.instagram.com/aydeeorfebre/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 text-white/50 hover:text-gold transition-colors duration-300 text-xs tracking-[4px] uppercase"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-            </svg>
-            Instagram
-          </a>
-        </nav>
-
-        <div className="absolute bottom-12 flex items-center gap-3 text-gold/30 text-[10px] tracking-[4px] uppercase">
-          <div className="w-8 h-px bg-gold/30" />
-          Cali, Colombia
-          <div className="w-8 h-px bg-gold/30" />
         </div>
+
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
       </div>
     </>
